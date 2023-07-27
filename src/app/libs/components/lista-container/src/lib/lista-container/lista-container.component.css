@@ -1,0 +1,9 @@
+.mainDiv{
+    padding: 50px 0 0 0;
+}
+
+.spinnerDiv{
+    padding: 25px;
+    display: flex;
+    justify-content: space-evenly;
+}

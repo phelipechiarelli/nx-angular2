@@ -1,0 +1,34 @@
+<div class="mainDiv">
+    <p-table [value]="lista" [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template pTemplate="header">
+            <tr *ngIf="!loading">            
+                <th pSortableColumn="name">Name<p-sortIcon field="code"></p-sortIcon></th>            
+                <th>Gender</th>            
+                <th>Hair color</th>            
+                <th>Height</th>            
+                <th>Mass</th>            
+                <th>Skin color</th>            
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="caption">
+            <tr *ngIf="loading" class="card spinnerDiv">
+                <th>
+                    <p-progressSpinner></p-progressSpinner>                    
+                </th>
+            </tr>
+        </ng-template>        
+        <ng-template  pTemplate="body" let-item>
+            <tr *ngIf="!loading" >            
+                <td>{{ item.name }}</td>            
+                <td>{{ item.gender }}</td>            
+                <td>{{ item.hair_color }}</td>            
+                <td>{{ item.height }}</td>            
+                <td>{{ item.mass }}</td>            
+                <td>{{ item.skin_color }}</td>            
+            </tr>
+        </ng-template>
+    </p-table>        
+    <div class="card flex justify-content-center">
+        <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="totalRecords"></p-paginator>
+    </div>
+</div>
