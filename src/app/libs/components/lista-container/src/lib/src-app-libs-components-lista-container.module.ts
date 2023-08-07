@@ -7,7 +7,6 @@ import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { PaginatorModule } from 'primeng/paginator';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
-
 @NgModule({
   imports: [CommonModule,
     BrowserAnimationsModule,
@@ -15,7 +14,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
     ButtonModule,
     TableModule,
     PaginatorModule,
-    ProgressSpinnerModule
+    ProgressSpinnerModule,    
     ],
   declarations: [ListaContainerComponent]  
 })

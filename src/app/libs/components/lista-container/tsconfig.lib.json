@@ -13,5 +13,5 @@
     "jest.config.ts",
     "src/**/*.test.ts"
   ],
-  "include": ["src/**/*.ts"]
+  "include": ["src/**/*.ts", "../../store/lista-container/list-people.effects.service.ts"]
 }

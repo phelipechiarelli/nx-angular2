@@ -1,11 +1,13 @@
-import { ListaServiceService } from './../../../../../data-access/lista-service/lista-service.service';
 import { Component } from '@angular/core';
-
+import { Store } from '@ngrx/store';
+import { map } from 'rxjs';
+import { IListPeopleState, listPeopleAction, loadListPeopleAction } from './../../../../../store/lista-container/list-people.state';
 
 interface PageEvent {
   first: number;
   rows: number;
-  page: number;  
+  page: number; 
+  pageCount: number;  
 }
 
 @Component({
@@ -21,33 +23,35 @@ export class ListaContainerComponent {
   totalRecords: number = 0;  
   pageString: any;
   pageNumber: number = 1;
-  loading: boolean = true;
-
-  constructor(private listaservice: ListaServiceService){  
-  }
+  loading: boolean = true;  
   
-  ngOnInit(){          
-    this.pageString = `?page=${this.pageNumber}`    
-    this.getListResults(this.pageString);
+
+  constructor(private store: Store<{listPeopleInitialState: IListPeopleState}>){      
+    
+  }
+
+  dados$ = this.store.select('listPeopleInitialState').pipe(
+    map(res => res.listPeople)
+  )
+
+  totalItens$ = this.store.select('listPeopleInitialState').pipe(
+    map(res => res.listCount)
+  )
+  
+  ngOnInit(){    
+    this.store.dispatch(loadListPeopleAction({page: 1}))
+    this.loading = this.dados$ ? false : true;
+    
+    console.log('this.loading',this.loading)
   }
 
   onPageChange(event: PageEvent) {
     this.first = event.first;
     this.rows = event.rows;
-    this.pageNumber = (this.first / 10) == 0 ? 1 : (this.first / 10) + 1 ;    
+    this.pageNumber = event.page == 0 ? 1 : event.page + 1 ;    
     this.pageString = `?page=${this.pageNumber}`    
-    this.getListResults(this.pageString);
-    console.log('this.loading.onPageChange',this.loading)
+    console.log('event', event)    
   }
 
-  getListResults(page: any){
-    console.log('this.loading.getListResults',this.loading)
-    this.loading = true;
-    this.listaservice.getPersonList(page).subscribe(res =>{
-      this.lista = res.results;
-      this.totalRecords = res.count;
-      this.loading = false;    
-      console.log('this.loading.getListResults',this.loading)
-    })
-  }
+  
 }

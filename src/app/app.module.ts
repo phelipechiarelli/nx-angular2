@@ -11,6 +11,10 @@ import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { PaginatorModule } from 'primeng/paginator';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { listPeopleReducer } from './libs/store/lista-container/list-people.state';
+import { ListPeopleEffectsService } from './libs/store/lista-container/list-people.effects.service';
 
 @NgModule({
   declarations: [AppComponent, NxWelcomeComponent, ListaContainerComponent ],
@@ -22,7 +26,9 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
     ButtonModule,
     TableModule,
     PaginatorModule,
-    ProgressSpinnerModule
+    ProgressSpinnerModule,
+    StoreModule.forRoot({ listPeopleInitialState: listPeopleReducer }),
+    EffectsModule.forRoot([ ListPeopleEffectsService ])
   ],
   providers: [],
   bootstrap: [AppComponent],

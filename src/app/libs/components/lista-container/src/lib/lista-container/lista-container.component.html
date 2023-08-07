@@ -1,5 +1,5 @@
 <div class="mainDiv">
-    <p-table [value]="lista" [tableStyle]="{ 'min-width': '50rem' }">
+    <p-table [value]="(dados$ | async)!" [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template pTemplate="header">
             <tr *ngIf="!loading">            
                 <th pSortableColumn="name">Name<p-sortIcon field="code"></p-sortIcon></th>            
@@ -29,6 +29,6 @@
         </ng-template>
     </p-table>        
     <div class="card flex justify-content-center">
-        <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="totalRecords"></p-paginator>
+        <p-paginator (onPageChange)="onPageChange($any($event))" [first]="first" [rows]="rows" [totalRecords]="(totalItens$ | async)!"></p-paginator>
     </div>
 </div>
